@@ -18,7 +18,7 @@ public interface EmployeeMapper {
     Employee getByUsername(String username);
 
     /**
-     *
+     * 新建员工数据
      * @param employee
      */
     @Insert("INSERT INTO employee (id_number, name, phone, sex, username, create_time, update_time, password, create_user, update_user)" +
@@ -28,4 +28,9 @@ public interface EmployeeMapper {
     Page<Employee> pageSelect(EmployeePageQueryDTO empPage);
 
     void startOrStop(Employee employee);
+
+    @Select("select * from employee where id = #{id}")
+    Employee getById(Long id);
+
+    void update(Employee employee);
 }

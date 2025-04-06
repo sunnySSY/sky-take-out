@@ -26,6 +26,7 @@ import org.springframework.util.DigestUtils;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Random;
 
 @Service
 @Slf4j
@@ -104,5 +105,21 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setId(id);
 
         employeeMapper.startOrStop(employee);
+    }
+
+    public Employee getById(Long id){
+        Employee employee = employeeMapper.getById(id);
+        return employee;
+    }
+
+    public void update(EmployeeDTO emp){
+        Employee employee = new Employee();
+        BeanUtils.copyProperties(emp, employee);
+
+        employee.setCreateTime(LocalDateTime.now());
+        employee.setUpdateTime(LocalDateTime.now());
+        employee.setUpdateUser(BaseContext.getCurrentId());
+
+        employeeMapper.update(employee);
     }
 }
