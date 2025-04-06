@@ -1,17 +1,21 @@
 package com.sky.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.sky.constant.MessageConstant;
 import com.sky.constant.PasswordConstant;
 import com.sky.constant.StatusConstant;
 import com.sky.context.BaseContext;
 import com.sky.dto.EmployeeDTO;
 import com.sky.dto.EmployeeLoginDTO;
+import com.sky.dto.EmployeePageQueryDTO;
 import com.sky.entity.Employee;
 import com.sky.entity.User;
 import com.sky.exception.AccountLockedException;
 import com.sky.exception.AccountNotFoundException;
 import com.sky.exception.PasswordErrorException;
 import com.sky.mapper.EmployeeMapper;
+import com.sky.result.PageResult;
 import com.sky.service.EmployeeService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +24,7 @@ import org.springframework.util.DigestUtils;
 
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -66,20 +71,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     public void addEmp(EmployeeDTO emp){
         Employee employee = new Employee();
         BeanUtils.copyProperties(emp, employee);
-//        String password = "123456";
-//        Integer status = 1;
-//        //@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-//        LocalDateTime createTime = LocalDateTime.now();
-//        //@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-//        LocalDateTime updateTime = LocalDateTime.now();
-//        Long createUser = 1l;
-//        Long updateUser = 1l;
-//
-//        emp.setPassword(password);
-//        emp.setCreateTime(createTime);
-//        emp.setUpdateTime(updateTime);
-//        emp.setCreateUser(createUser);
-//        emp.setUpdateUser(updateUser);
 
         employee.setStatus(StatusConstant.ENABLE);  //很多的对象都有状态
         employee.setPassword(DigestUtils.md5DigestAsHex(PasswordConstant.DEFAULT_PASSWORD.getBytes()));
@@ -88,5 +79,18 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setCreateUser(BaseContext.getCurrentId());
         employee.setUpdateUser(BaseContext.getCurrentId());
         employeeMapper.addEmp(employee);
+    }
+
+    public PageResult page(EmployeePageQueryDTO empPage){
+        PageHelper.startPage(empPage.getPage(), empPage.getPageSize());
+
+        Page<Employee> pageList = employeeMapper.pageSelect(empPage); //查找符合要求的实体类
+
+//        分页结果实体的封装
+        Long total = pageList.getTotal();
+        List<Employee>  empList= pageList.getResult();
+
+        PageResult pageResult = new PageResult(total, empList);
+        return pageResult;
     }
 }
