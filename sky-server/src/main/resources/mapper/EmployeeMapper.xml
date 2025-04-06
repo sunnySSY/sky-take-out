@@ -13,4 +13,13 @@
         </where>
         order by create_time desc
     </select>
+
+<!--    &#45;&#45;         MyBatis 会自动把 employee.getStatus() → #{status} 映射好。-->
+    <update id="startOrStop">
+        UPDATE employee
+        SET status = #{status}
+        WHERE id = #{id}
+    </update>
+
 </mapper>
+

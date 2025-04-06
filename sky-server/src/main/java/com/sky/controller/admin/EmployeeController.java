@@ -97,4 +97,12 @@ public class EmployeeController {
         return Result.success(p);
     }
 
+    @ApiOperation("启用禁用员工")
+    @PostMapping("status/{status}")
+    public Result startOrStop(Long id, @PathVariable Integer status){ //区分路径参数和列表参数
+        log.info("设置员工状态为 {}" , status);
+        employeeService.startOrStop(status, id);
+        return Result.success();
+    }
+
 }
