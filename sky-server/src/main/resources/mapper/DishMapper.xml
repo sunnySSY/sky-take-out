@@ -16,4 +16,22 @@
 <!--        </foreach>-->
 <!--    </insert>-->
 
+
+    <select id="pageSelect" resultType="com.sky.vo.DishVO">
+        SELECT *
+        FROM dish
+        <where>
+            <if test="name != null and name != ''">
+                AND name LIKE CONCAT('%', #{name}, '%')
+            </if>
+            <if test="categoryId != null">
+                AND category_id = #{categoryId}
+            </if>
+            <if test="status != null">
+                AND status = #{status}
+            </if>
+        </where>
+        ORDER BY create_time DESC
+    </select>
+
 </mapper>

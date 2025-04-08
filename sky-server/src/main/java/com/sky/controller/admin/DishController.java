@@ -1,16 +1,15 @@
 package com.sky.controller.admin;
 
 import com.sky.dto.DishDTO;
+import com.sky.dto.DishPageQueryDTO;
+import com.sky.result.PageResult;
 import com.sky.result.Result;
 import com.sky.service.DishService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Api(tags = "菜品管理")
 @RestController
@@ -28,4 +27,14 @@ public class DishController {
 
         return Result.success();
     }
+
+    @ApiOperation("分页查询菜品")
+    @GetMapping("/page")
+    public Result<PageResult> pageList(DishPageQueryDTO dishPageQueryDTO){
+        log.info("分页查询结果：{}", dishPageQueryDTO);
+        PageResult pageResult = dishService.page(dishPageQueryDTO); //返回的是一个整数和一个集合
+
+        return Result.success(pageResult);
+    }
+
 }
