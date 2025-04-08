@@ -50,18 +50,18 @@ public class AutoFillAspect {
 
         if(operationType == OperationType.INSERT){
             try{
-                Method setCreatTime = entity.getClass().getDeclaredMethod(AutoFillConstant.SET_CREATE_TIME, LocalDateTime.class);
+                Method setCreateTime = entity.getClass().getDeclaredMethod(AutoFillConstant.SET_CREATE_TIME, LocalDateTime.class);
                 Method setCreateUser = entity.getClass().getDeclaredMethod(AutoFillConstant.SET_CREATE_USER, Long.class);
                 Method setUpdateTime = entity.getClass().getDeclaredMethod(AutoFillConstant.SET_UPDATE_TIME, LocalDateTime.class);
                 Method setUpdateUser = entity.getClass().getDeclaredMethod(AutoFillConstant.SET_UPDATE_USER, Long.class);
 
-                setCreatTime.invoke(entity, now);
+                setCreateTime.invoke(entity, now);
                 setUpdateTime.invoke(entity,now);
                 setCreateUser.invoke(entity, currentId);
                 setUpdateUser.invoke(entity, currentId);
 
             }catch (Exception e){
-
+                log.error("自动填充字段出错", e);
             }
         }else{
             try{

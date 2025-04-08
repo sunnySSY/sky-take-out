@@ -61,7 +61,7 @@ public class AliOssUtil {
                 .append("/")
                 .append(objectName);
 
-        log.info("文件上传到:{}", stringBuilder.toString());
+        log.info("文件上传到:{}", stringBuilder.toString()); // 配置阿里云的上传路径
 
         return stringBuilder.toString();
     }
