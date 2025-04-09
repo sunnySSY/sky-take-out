@@ -33,6 +33,12 @@ public interface DishMapper {
 
     Page<DishVO> pageSelect(DishPageQueryDTO dishPageQueryDTO);
 
+    @Select("select * from dish where id = #{id}")
+    Dish getById(Long id);
+
+
+    void delete(List<Long> ids);
+
 //    void addFlavors(List<DishFlavor> flavors);
 
 

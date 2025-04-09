@@ -11,6 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Api(tags = "菜品管理")
 @RestController
 @RequestMapping("/admin/dish")
@@ -35,6 +37,15 @@ public class DishController {
         PageResult pageResult = dishService.page(dishPageQueryDTO); //返回的是一个整数和一个集合
 
         return Result.success(pageResult);
+    }
+
+    @ApiOperation("批量删除菜品")
+    @DeleteMapping()
+    public Result deleteById (@RequestParam List<Long> ids){
+        log.info("被删除的菜品id为 {}" , ids);
+        dishService.delete(ids);
+
+        return Result.success();
     }
 
 }
