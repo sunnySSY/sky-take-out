@@ -12,4 +12,6 @@ public interface DishFlavorsMapper {
 
 
     void delete(List<Long> ids);
+
+    void update(List<DishFlavor> flavors);
 }

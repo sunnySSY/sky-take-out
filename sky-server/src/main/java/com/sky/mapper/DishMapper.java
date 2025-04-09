@@ -39,6 +39,12 @@ public interface DishMapper {
 
     void delete(List<Long> ids);
 
+//    void startOrStop(Dish dish);
+
+    void startOrStop(Integer status, Long id);
+
+    void update(Dish dish);
+
 //    void addFlavors(List<DishFlavor> flavors);
 
 

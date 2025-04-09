@@ -48,4 +48,29 @@ public class DishController {
         return Result.success();
     }
 
+    @ApiOperation("根据id查询菜品")
+    @GetMapping("/{id}")
+    public Result getById(@PathVariable Long id){
+
+        return Result.success();
+    }
+
+    @ApiOperation("设置菜品的状态")
+    @PostMapping("/status/{status}")
+    public Result startOrStop(Integer status, Long id){
+        log.info("被删除的员工id：{}", id);
+        dishService.startOrStop(status, id);
+
+        return Result.success();
+    }
+
+    @ApiOperation("修改菜品状态")
+    @PutMapping
+    public Result update(@RequestBody DishDTO dishDTO){
+        log.info("修改的数据为： {}", dishDTO);
+        dishService.update(dishDTO);
+
+        return Result.success();
+    }
+
 }

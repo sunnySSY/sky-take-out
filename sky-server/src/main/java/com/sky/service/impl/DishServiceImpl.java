@@ -86,4 +86,26 @@ public class DishServiceImpl implements DishService {
 
     }
 
+
+    public void startOrStop(Integer status, Long id){
+        log.info("需要设置的id为{}", id);
+
+//        Dish dish = new Dish();
+//        dish.setStatus(status);
+//        dish.setId(id);
+//
+//        dishMapper.startOrStop(dish);
+        dishMapper.startOrStop(status, id);  //有多个参数的情况下，尽量返回
+    }
+
+    public void update(DishDTO dishDTO){
+        Dish dish = new Dish();
+        BeanUtils.copyProperties(dishDTO, dish);
+        dishMapper.update(dish); //与数据库的格式一定要对应
+
+        Long dishId = dish.getId(); //获取插入菜品的id
+
+        List<DishFlavor> flavors = dishDTO.getFlavors();
+        dishFlavorsMapper.update(flavors);
+    }
 }
