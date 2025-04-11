@@ -7,8 +7,16 @@ sky:
     username: root
     password: 52YYttzz**
 
+  redis:
+    host: localhost
+    port: 6379
+    password: 123456
+    database: 10
+
   alioss:
     endpoint: http://oss-cn-beijing.aliyuncs.com
     access-key-id: LTAI5t7mR3VCMK57nDkf7kQV
     access-key-secret: gnXDEfJc8ldgtM2E8AEYUdiNgL9muQ
     bucket-name: sky-itcast-sunsiyi
+
+
