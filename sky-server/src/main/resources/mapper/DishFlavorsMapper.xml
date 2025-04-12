@@ -18,6 +18,13 @@
         </foreach>
     </delete>
 
+<!--    根据id查询口味 -->
+    <select id="getByDishId" resultType="com.sky.entity.DishFlavor">
+        SELECT *
+        FROM dish_flavor
+        WHERE dish_id = #{id}
+    </select>
+
     <update id="update" >
         UPDATE dish_flavor
         <set>

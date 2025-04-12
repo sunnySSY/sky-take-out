@@ -47,6 +47,21 @@ public interface DishMapper {
 
 //    void addFlavors(List<DishFlavor> flavors);
 
+    /**
+     * 根据套餐id查询菜品
+     * @param id
+     * @return
+     */
+    List<Dish> getBySetmealId(Long id);
+
+    /**
+     * 根据分类id查询菜品列表
+     * @param categoryId
+     * @return
+     */
+    @Select("select * from dish where category_id = #{categoryId}")
+    List<Dish> selectByCategoryId(Long categoryId);
 
 
+    List<Dish> list(Dish dish);
 }

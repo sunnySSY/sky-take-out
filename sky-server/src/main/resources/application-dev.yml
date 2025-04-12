@@ -19,4 +19,8 @@ sky:
     access-key-secret: gnXDEfJc8ldgtM2E8AEYUdiNgL9muQ
     bucket-name: sky-itcast-sunsiyi
 
+  wechat:
+    appid: wxda12afd18d6c8bbf
+    secret: f63a43ca1f58411f61758265fb1afc17
+
 
