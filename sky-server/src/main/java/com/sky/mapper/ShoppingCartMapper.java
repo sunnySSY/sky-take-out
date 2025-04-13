@@ -12,7 +12,7 @@ import java.util.List;
 public interface ShoppingCartMapper {
     List<ShoppingCart> list (ShoppingCart shoppingCart);
 
-    @Update("update shopping_cart set number = #{number} where user_id = #{userId}")
+//    @Update("update shopping_cart set number = #{number} where user_id = #{userId}")
     void setNumberById (ShoppingCart shoppingCart);
 
     @Insert("insert into shopping_cart (name, user_id, dish_id, setmeal_id, dish_flavor, number, amount, image, create_time) " +

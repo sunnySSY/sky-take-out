@@ -9,6 +9,7 @@ import com.sky.mapper.DishMapper;
 import com.sky.mapper.SetmealMapper;
 import com.sky.mapper.ShoppingCartMapper;
 import com.sky.service.ShoppingCartService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
+@Slf4j
 public class ShoppingCartServiceImpl implements ShoppingCartService {
     @Autowired
     private DishMapper dishMapper;
@@ -25,7 +27,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     @Autowired
     private ShoppingCartMapper shoppingCartMapper;
     public void addShoppingCart(ShoppingCartDTO shoppingCartDTO){
-//        当前是否在购物车中存在
+//        当前菜品是否在购物车中存在
         ShoppingCart shoppingCart = new ShoppingCart();
         BeanUtils.copyProperties(shoppingCartDTO, shoppingCart);
         Long userId = BaseContext.getCurrentId();
@@ -79,6 +81,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         if(list != null && list.size() > 0){
             shoppingCart.setNumber(list.get(0).getNumber() - 1);
             shoppingCartMapper.setNumberById(shoppingCart);//根据查询到的数据（对象）进行get
+            log.info("现在单个菜品的状态：{}",shoppingCart);
         }else{
             shoppingCartMapper.delete(shoppingCart);
         }

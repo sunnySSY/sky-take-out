@@ -38,4 +38,23 @@
         </where>
     </delete>
 
+    <update id="setNumberById" parameterType="com.sky.entity.ShoppingCart">
+        UPDATE shopping_cart
+        SET number = #{number}
+        <where>
+            <if test="userId != null">
+                AND user_id = #{userId}
+            </if>
+            <if test="dishId != null">
+                AND dish_id = #{dishId}
+            </if>
+            <if test="setmealId != null">
+                AND setmeal_id = #{setmealId}
+            </if>
+            <if test="dishFlavor != null">
+                AND dish_flavor = #{dishFlavor}
+            </if>
+        </where>
+    </update>
+
 </mapper>
