@@ -34,7 +34,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         List<ShoppingCart> list = shoppingCartMapper.list(shoppingCart);
         if(list != null && list.size() > 0){
             shoppingCart.setNumber(list.get(0).getNumber() + 1);
-            shoppingCartMapper.addNumberById(shoppingCart);//根据查询到的数据（对象）进行get
+            shoppingCartMapper.setNumberById(shoppingCart);//根据查询到的数据（对象）进行get
         }else{
             if(shoppingCartDTO.getDishId() != null){
                 Dish dish = dishMapper.getById(shoppingCartDTO.getDishId());
@@ -68,5 +68,19 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         ShoppingCart shoppingCart = new ShoppingCart();
         shoppingCart.setUserId(userId);
         shoppingCartMapper.clean(shoppingCart);
+    }
+
+    public void delete(ShoppingCartDTO shoppingCartDTO){
+        ShoppingCart shoppingCart = new ShoppingCart();
+        BeanUtils.copyProperties(shoppingCartDTO, shoppingCart);
+        Long userId = BaseContext.getCurrentId();
+        shoppingCart.setUserId(userId);
+        List<ShoppingCart> list = shoppingCartMapper.list(shoppingCart);
+        if(list != null && list.size() > 0){
+            shoppingCart.setNumber(list.get(0).getNumber() - 1);
+            shoppingCartMapper.setNumberById(shoppingCart);//根据查询到的数据（对象）进行get
+        }else{
+            shoppingCartMapper.delete(shoppingCart);
+        }
     }
 }

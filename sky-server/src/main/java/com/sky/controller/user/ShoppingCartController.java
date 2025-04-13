@@ -42,5 +42,12 @@ public class ShoppingCartController {
         shoppingCartService.clean();
         return Result.success();
     }
+    @PostMapping("/sub")
+    @ApiOperation("一个个删除购物车")
+    public Result delete(@RequestBody ShoppingCartDTO shoppingCartDTO){
+        log.info("被删除的菜品为：{}", shoppingCartDTO);
+        shoppingCartService.delete(shoppingCartDTO);
+        return Result.success();
+    }
 
 }
