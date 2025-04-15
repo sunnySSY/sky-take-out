@@ -64,4 +64,5 @@ public interface DishMapper {
 
 
     List<Dish> list(Dish dish);
+
 }
