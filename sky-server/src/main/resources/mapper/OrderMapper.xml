@@ -71,6 +71,18 @@
         </where>
     </select>
 
+    <select id="getUserSum" resultType="java.lang.Integer">
+        select count(id) from orders
+        <where>
+            <if test="beginTime != null">
+                and create_time &gt;= #{beginTime}
+            </if>
+            <if test="endTime != null">
+                and create_time &lt;= #{endTime}
+            </if>
+        </where>
+    </select>
+
 
 
 </mapper>

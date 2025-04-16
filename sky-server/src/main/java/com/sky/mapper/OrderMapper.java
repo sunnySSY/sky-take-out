@@ -27,7 +27,7 @@ public interface OrderMapper {
     @Select("select * from orders where id = #{id}")
     OrderVO select(Orders orders);
 
-    @Update("update orders set status = #{status} and cancel_time = #{cancelTime} where id = #{id}")
+    @Update("update orders set status = #{status} , cancel_time = #{cancelTime} where id = #{id}")
     void updateStatus(Orders orders);
 
     @Select("select * from orders where status = #{status} and order_time = #{OrderTime}")
@@ -39,5 +39,6 @@ public interface OrderMapper {
      * @return
      */
     Double getSumTurnover(Map map);
-    
+
+    Integer getUserSum(Map map);
 }

@@ -77,7 +77,6 @@ public class OrderServiceImpl implements OrderService {
                         .status(Orders.CANCELLED)
                         .cancelTime(LocalDateTime.now())
                         .build();
-
         orderMapper.updateStatus(orders);
     }
 

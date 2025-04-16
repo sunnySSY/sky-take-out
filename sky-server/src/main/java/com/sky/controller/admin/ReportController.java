@@ -3,6 +3,7 @@ package com.sky.controller.admin;
 import com.sky.result.Result;
 import com.sky.service.ReportService;
 import com.sky.vo.TurnoverReportVO;
+import com.sky.vo.UserReportVO;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -28,11 +29,21 @@ public class ReportController {
 
     @ApiOperation("营业额统计")
     @GetMapping("/turnoverStatistics")
-    public Result<TurnoverReportVO> TurnoverStaticReport(@DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate begin ,
+    public Result<TurnoverReportVO> turnoverStaticReport(@DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate begin ,
                                                          @DateTimeFormat(pattern = "yyyy-MM-dd")LocalDate end){
 
         log.info("开始日期为： {}, 结束日期为：{}", begin, end);
         TurnoverReportVO turnoverReportVO = reportService.TurnoverStaticReport(begin, end);
         return Result.success(turnoverReportVO);
+    }
+
+    @ApiOperation("用户统计")
+    @GetMapping("/userStatistics")
+    public Result<UserReportVO> userStaticReport(@DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate begin ,
+                                                 @DateTimeFormat(pattern = "yyyy-MM-dd")LocalDate end){
+
+        log.info("开始日期为： {}, 结束日期为：{}", begin, end);
+        UserReportVO userReportVO = reportService.userStaticReport(begin, end);
+        return Result.success(userReportVO);
     }
 }
