@@ -11,6 +11,7 @@ import org.apache.ibatis.annotations.Update;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface OrderMapper {
@@ -32,6 +33,11 @@ public interface OrderMapper {
     @Select("select * from orders where status = #{status} and order_time = #{OrderTime}")
     List<Orders> checkOrderTime(Integer status, LocalDateTime OrderTime);
 
-
+    /**
+     * 动态方式统计营业额数据
+     * @param map
+     * @return
+     */
+    Double getSumTurnover(Map map);
     
 }
